@@ -25,7 +25,7 @@ indices.drawline = function(x0, y0, x1, y1) {
     # Llamada traspuesta recursiva y traspuesta
 }
 
-DrawLine = function(img, x0, y0, x1, y1, inc=T, val=1) {
+DrawLine = function(img, x0, y0, x1, y1, inc=TRUE, val=1) {
   # Dibuja recta desde (x0,y0)-(x1,y1)
   # Por defecto método no destructivo y con valor=1
   indices=indices.drawline(x0, y0, x1, y1)
@@ -35,7 +35,7 @@ DrawLine = function(img, x0, y0, x1, y1, inc=T, val=1) {
   return(img)
 }
 
-DrawPoint = function(img, x0, y0, inc=T, val=1) {
+DrawPoint = function(img, x0, y0, inc=TRUE, val=1) {
     # Dibuja punto en (x0,y0)
     # Por defecto método no destructivo y con valor=1
     img=DrawLine(img, x0, y0, x0, y0, inc, val)
@@ -43,7 +43,7 @@ DrawPoint = function(img, x0, y0, inc=T, val=1) {
     return(img)
 }
 
-DrawEllip = function(img, x0, y0, a, b, inc=T, val=1, fill=F, thick=1) {
+DrawEllip = function(img, x0, y0, a, b, inc=TRUE, val=1, fill=FALSE, thick=1) {
     # Dibuja elipse de centro (x0,y0) y radios a y b
     # Por defecto método no destructivo, con valor=1 y sin relleno
     # Puede elegirse el grosor si no se rellena
@@ -60,7 +60,7 @@ DrawEllip = function(img, x0, y0, a, b, inc=T, val=1, fill=F, thick=1) {
     return(img)
 }
 
-DrawCircle = function(img, x0, y0, r, inc=T, val=1, fill=F, thick=1) {
+DrawCircle = function(img, x0, y0, r, inc=TRUE, val=1, fill=FALSE, thick=1) {
   # Dibuja círculo de centro (x0,y0) y radio r
   # Por defecto método no destructivo, con valor=1 y sin relleno
   # Puede elegirse el grosor si no se rellena
@@ -69,7 +69,7 @@ DrawCircle = function(img, x0, y0, r, inc=T, val=1, fill=F, thick=1) {
   return(img)
 }
 
-SaveBitmap = function(img, name, trunc=T, gamma=1) {
+SaveBitmap = function(img, name, trunc=TRUE, gamma=1) {
   # Guarda bitmap en formato PNG
   # Solo si trunc=F y la imagen excede de 1 se reescala a 1
   library(png)
