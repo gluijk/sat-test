@@ -86,8 +86,8 @@ SaveBitmap = function(img, name, trunc=T, gamma=1) {
 ANCHO=800
 ALTO=ANCHO
 MARGEN=round(min(ANCHO,ALTO)/20)
-CENTROX=round(ANCHO*0.5)
-CENTROY=round(ALTO*0.5)
+CENTROX=round(ANCHO/2)
+CENTROY=round(ALTO/2)
 
 RATIO=3  # size ratio between circles A and B
 RA=round((min(ANCHO,ALTO)-2*MARGEN) / (2*(2+RATIO)))
