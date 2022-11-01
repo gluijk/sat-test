@@ -83,7 +83,7 @@ SaveBitmap = function(img, name, trunc=T, gamma=1) {
 
 # SAT TEST ANIMATION
 
-ANCHO=512
+ANCHO=800
 ALTO=ANCHO
 MARGEN=round(min(ANCHO,ALTO)/20)
 CENTROX=round(ANCHO*0.5)
