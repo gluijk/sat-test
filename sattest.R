@@ -117,6 +117,7 @@ for (t in 0:(N-1)) {
     frm=DrawPoint(frm, x2, y2, val=1)
 
     SaveBitmap(frm, paste0("frm", ifelse(t<10, "00", ifelse(t<100, "0", "")), t))
+    
     # Delete circle B and diameter
     frm=DrawCircle(frm, x0, y0, RA, val=-0.3, fill=TRUE)
     frm=DrawLine(frm, x1, y1, x2, y2, val=-0.5)
