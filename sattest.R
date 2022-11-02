@@ -83,13 +83,15 @@ SaveBitmap = function(img, name, trunc=TRUE, gamma=1) {
 
 # SAT TEST ANIMATION
 
+# Animation parameters
+RATIO=3  # size ratio between circles A and B
+N=420  # number of frames chosen to be a multiple of RATIO+1 (no. of A turns)
 ANCHO=800  # animation dimensions in pixels
 ALTO=ANCHO
 MARGEN=min(ANCHO,ALTO)/20  # borders
+
 CENTROX=ANCHO/2
 CENTROY=ALTO/2
-
-RATIO=3  # size ratio between circles A and B
 RA=(min(ANCHO,ALTO)-2*MARGEN) / (2*(2+RATIO))
 RB=RA*RATIO
 
@@ -97,7 +99,6 @@ frm=NewBitmap(ANCHO, ALTO)
 # Draw circle A
 frm=DrawCircle(frm, CENTROX, CENTROY, RB, val=0.3, fill=TRUE)
 
-N=400
 for (t in 0:(N-1)) {
     alpha=2*pi*t/N
     
@@ -107,15 +108,22 @@ for (t in 0:(N-1)) {
     frm=DrawCircle(frm, x0, y0, RA, val=0.3, fill=TRUE)
     
     # Draw diameter and trace
-    offset=RA*sin(alpha*(RATIO+1))
-    x1=x0-offset
-    x2=x0+offset
-    offset=RA*cos(alpha*(RATIO+1))
-    y1=y0-offset
-    y2=y0+offset
+    dx=RA*sin(alpha*(RATIO+1))
+    dy=RA*cos(alpha*(RATIO+1))
+    x1=x0-dx
+    x2=x0+dx
+    y1=y0-dy
+    y2=y0+dy
     frm=DrawLine(frm, x1, y1, x2, y2, val=0.5)
     frm=DrawPoint(frm, x2, y2, val=1)
+    
+    # Freeze circle A turns
+    if (!(t %% (N/(RATIO+1)))) {  # circle A gets perfectly vertical
+        frm=DrawCircle(frm, x0, y0, RA, val=0.15)
+        frm=DrawLine(frm, x1, y1, x2, y2, val=0.15)
+    }
 
+    # Save frame
     SaveBitmap(frm, paste0("frm", ifelse(t<10, "00", ifelse(t<100, "0", "")), t))
     
     # Delete circle B and diameter
