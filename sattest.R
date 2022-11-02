@@ -3,11 +3,11 @@
 # https://www.overfitting.net/2022/11/test-geometrico-y-su-simulacion-con-r.html
 
 
-# LIBRERÕA GR¡FICA BITMAP
+# LIBRER√çA GR√ÅFICA BITMAP
 
 NewBitmap = function(dimx, dimy, val=0) {
-  # Crea bitmap de dimensiones dimx y dimy
-  return(array(val,c(dimx,dimy)))
+	# Crea bitmap de dimensiones dimx y dimy
+	return(array(val,c(dimx,dimy)))
 }
 
 # Por Carlos Gil Bellosta
@@ -26,18 +26,18 @@ indices.drawline = function(x0, y0, x1, y1) {
 }
 
 DrawLine = function(img, x0, y0, x1, y1, inc=TRUE, val=1) {
-  # Dibuja recta desde (x0,y0)-(x1,y1)
-  # Por defecto mÈtodo no destructivo y con valor=1
-  indices=indices.drawline(x0, y0, x1, y1)
-  if (inc) img[indices]=img[indices]+val
-  else img[indices]=val
-  
-  return(img)
+	# Dibuja recta desde (x0,y0)-(x1,y1)
+	# Por defecto m√©todo no destructivo y con valor=1
+	indices=indices.drawline(x0, y0, x1, y1)
+	if (inc) img[indices]=img[indices]+val
+	else img[indices]=val
+
+	return(img)
 }
 
 DrawPoint = function(img, x0, y0, inc=TRUE, val=1) {
     # Dibuja punto en (x0,y0)
-    # Por defecto mÈtodo no destructivo y con valor=1
+    # Por defecto m√©todo no destructivo y con valor=1
     img=DrawLine(img, x0, y0, x0, y0, inc, val)
     
     return(img)
@@ -45,9 +45,9 @@ DrawPoint = function(img, x0, y0, inc=TRUE, val=1) {
 
 DrawEllip = function(img, x0, y0, a, b, inc=TRUE, val=1, fill=FALSE, thick=1) {
     # Dibuja elipse de centro (x0,y0) y radios a y b
-    # Por defecto mÈtodo no destructivo, con valor=1 y sin relleno
+    # Por defecto m√©todo no destructivo, con valor=1 y sin relleno
     # Puede elegirse el grosor si no se rellena
-    # AquÌ no redondeamos para tener m·s precisiÛn en la divisiÛn
+    # Aqu√≠ no redondeamos para tener m√°s precisi√≥n en la divisi√≥n
     if (fill) {
         indices=which( ((row(img)-x0)/a)^2 + ((col(img)-y0)/b)^2 < 1 )
     } else {
@@ -61,22 +61,22 @@ DrawEllip = function(img, x0, y0, a, b, inc=TRUE, val=1, fill=FALSE, thick=1) {
 }
 
 DrawCircle = function(img, x0, y0, r, inc=TRUE, val=1, fill=FALSE, thick=1) {
-  # Dibuja cÌrculo de centro (x0,y0) y radio r
-  # Por defecto mÈtodo no destructivo, con valor=1 y sin relleno
-  # Puede elegirse el grosor si no se rellena
-  img=DrawEllip(img, x0, y0, r, r, inc, val, fill, thick)
-  
-  return(img)
+	# Dibuja c√≠rculo de centro (x0,y0) y radio r
+	# Por defecto m√©todo no destructivo, con valor=1 y sin relleno
+	# Puede elegirse el grosor si no se rellena
+	img=DrawEllip(img, x0, y0, r, r, inc, val, fill, thick)
+
+	return(img)
 }
 
 SaveBitmap = function(img, name, trunc=TRUE, gamma=1) {
-  # Guarda bitmap en formato PNG
-  # Solo si trunc=F y la imagen excede de 1 se reescala a 1
-  library(png)
-  img[img<0]=0
-  if (trunc) img[img>1]=1
-  if (tolower(substr(name, nchar(name)-3, nchar(name))) != ".png") name=paste0(name,".png")
-  writePNG(t(img[,ncol(img):1] / max(max(img),1))^(1/gamma), name)
+	# Guarda bitmap en formato PNG
+	# Solo si trunc=F y la imagen excede de 1 se reescala a 1
+	library(png)
+	img[img<0]=0
+	if (trunc) img[img>1]=1
+	if (tolower(substr(name, nchar(name)-3, nchar(name))) != ".png") name=paste0(name,".png")
+	writePNG(t(img[,ncol(img):1] / max(max(img),1))^(1/gamma), name)
 }
 
 
