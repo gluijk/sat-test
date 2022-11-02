@@ -83,14 +83,14 @@ SaveBitmap = function(img, name, trunc=TRUE, gamma=1) {
 
 # SAT TEST ANIMATION
 
-ANCHO=800
+ANCHO=800  # animation dimensions in pixels
 ALTO=ANCHO
-MARGEN=round(min(ANCHO,ALTO)/20)
-CENTROX=round(ANCHO/2)
-CENTROY=round(ALTO/2)
+MARGEN=min(ANCHO,ALTO)/20  # borders
+CENTROX=ANCHO/2
+CENTROY=ALTO/2
 
 RATIO=3  # size ratio between circles A and B
-RA=round((min(ANCHO,ALTO)-2*MARGEN) / (2*(2+RATIO)))
+RA=(min(ANCHO,ALTO)-2*MARGEN) / (2*(2+RATIO))
 RB=RA*RATIO
 
 frm=NewBitmap(ANCHO, ALTO)
@@ -104,18 +104,20 @@ for (t in 0:(N-1)) {
     # Draw circle B
     x0=CENTROX+(RA+RB)*sin(alpha)
     y0=CENTROY+(RA+RB)*cos(alpha)
-    frm=DrawCircle(frm, round(x0), round(y0), RA, val=0.3, fill=TRUE)
+    frm=DrawCircle(frm, x0, y0, RA, val=0.3, fill=TRUE)
     
     # Draw diameter and trace
-    x1=round(x0-RA*sin(alpha*(RATIO+1)))
-    y1=round(y0-RA*cos(alpha*(RATIO+1)))
-    x2=round(x0+RA*sin(alpha*(RATIO+1)))
-    y2=round(y0+RA*cos(alpha*(RATIO+1)))
+    offset=RA*sin(alpha*(RATIO+1))
+    x1=x0-offset
+    x2=x0+offset
+    offset=RA*cos(alpha*(RATIO+1))
+    y1=y0-offset
+    y2=y0+offset
     frm=DrawLine(frm, x1, y1, x2, y2, val=0.5)
     frm=DrawPoint(frm, x2, y2, val=1)
 
     SaveBitmap(frm, paste0("frm", ifelse(t<10, "00", ifelse(t<100, "0", "")), t))
     # Delete circle B and diameter
-    frm=DrawCircle(frm, round(x0), round(y0), RA, val=-0.3, fill=TRUE)
+    frm=DrawCircle(frm, x0, y0, RA, val=-0.3, fill=TRUE)
     frm=DrawLine(frm, x1, y1, x2, y2, val=-0.5)
 }
