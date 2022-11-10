@@ -96,13 +96,13 @@ RA=(min(ANCHO,ALTO)-2*MARGEN) / (2*(2+RATIO))
 RB=RA*RATIO
 
 frm=NewBitmap(ANCHO, ALTO)
-# Draw circle A
+# Draw circle B
 frm=DrawCircle(frm, CENTROX, CENTROY, RB, val=0.3, fill=TRUE)
 
 for (t in 0:(N-1)) {
     alpha=2*pi*t/N
     
-    # Draw circle B
+    # Draw circle A
     x0=CENTROX+(RA+RB)*sin(alpha)
     y0=CENTROY+(RA+RB)*cos(alpha)
     frm=DrawCircle(frm, x0, y0, RA, val=0.3, fill=TRUE)
@@ -126,7 +126,7 @@ for (t in 0:(N-1)) {
     # Save frame
     SaveBitmap(frm, paste0("frm", ifelse(t<10, "00", ifelse(t<100, "0", "")), t))
     
-    # Delete circle B and diameter
+    # Delete circle A and diameter
     frm=DrawCircle(frm, x0, y0, RA, val=-0.3, fill=TRUE)
     frm=DrawLine(frm, x1, y1, x2, y2, val=-0.5)
 }
