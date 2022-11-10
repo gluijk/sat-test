@@ -107,7 +107,7 @@ for (t in 0:(N-1)) {
     y0=CENTROY+(RA+RB)*cos(alpha)
     frm=DrawCircle(frm, x0, y0, RA, val=0.3, fill=TRUE)
     
-    # Draw diameter and trace
+    # Draw diameter A and trace
     dx=RA*sin(alpha*(RATIO+1))
     dy=RA*cos(alpha*(RATIO+1))
     x1=x0-dx
@@ -118,7 +118,7 @@ for (t in 0:(N-1)) {
     frm=DrawPoint(frm, x2, y2, val=1)
     
     # Freeze circle A turns
-    if (!(t %% (N/(RATIO+1)))) {  # circle A gets perfectly vertical
+    if (!(t %% (N/(RATIO+1)))) {  # circle A turned 360º
         frm=DrawCircle(frm, x0, y0, RA, val=0.15)
         frm=DrawLine(frm, x1, y1, x2, y2, val=0.15)
     }
@@ -126,7 +126,7 @@ for (t in 0:(N-1)) {
     # Save frame
     SaveBitmap(frm, paste0("frm", ifelse(t<10, "00", ifelse(t<100, "0", "")), t))
     
-    # Delete circle A and diameter
+    # Delete circle A and diameter A
     frm=DrawCircle(frm, x0, y0, RA, val=-0.3, fill=TRUE)
     frm=DrawLine(frm, x1, y1, x2, y2, val=-0.5)
 }
